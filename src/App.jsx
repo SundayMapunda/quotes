@@ -1,6 +1,6 @@
 import React from 'react'
-import Daily from './Daily.jsx'
-import Categories from './Categories.jsx'
+import Daily from './Daily.jsx';
+import Categories from './Categories.jsx';
 
 function App() {
   return (

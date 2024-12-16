@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Dropdown, Modal} from 'bootstrap'
 
 const quotes = [
     "I'm not clumsy, I'm just on a personal mission to test gravity!",
@@ -33,9 +34,33 @@ function Daily() {
   return (
     <div>
         <div className="card border-0 shadow px-3 py-2 mt-3 mb-4" style={{backgroundColor: 'cyan'}}>
+            <a href="#myModal" data-bs-toggle="modal" className="stretched-link"></a>
             <p className='fs-2' style={{fontFamily: 'monospace', fontWeight: 'bold'}}>
                 {`"${currentQuote}"`} <br /> - {currentAuthor}
             </p>
+        </div>
+
+        <div className="modal" id="myModal">
+        <div className="modal-dialog">
+            <div className="modal-content">
+
+            <div className="modal-header">
+                <h4 className="modal-title">Save Quote</h4>
+                <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div className="modal-body">
+                <p className='fs-2' style={{fontFamily: 'monospace', fontWeight: 'bold'}}>
+                    {`"${currentQuote}"`} <br /> - {currentAuthor}
+                </p>
+            </div>
+
+            <div className="modal-footer">
+                <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Download</button>
+            </div>
+
+            </div>
+        </div>
         </div>
     </div>
   )
