@@ -66,7 +66,7 @@ const Birthday = () => {
             {timeLeft.seconds}s
           </p>
         ) : (
-          <p>Loading...</p>
+          <p>Hooraayyy!!!</p>
         )}
       </div>
 
