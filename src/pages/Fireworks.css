@@ -50,7 +50,9 @@ img {
 
 .message {
   position: absolute;
-  top: 5vmin;
+  top: 3vmin;
+  text-align: center;
+  font-family: cursive;
 }
 
 .cover {
@@ -111,7 +113,7 @@ img {
 
 .heart {
   position: relative;
-  width: 5vmin;
+  width: 6vmin;
   height: 4vmin;
   top: 7vmin;
   left: -1vmin;
@@ -152,7 +154,7 @@ img {
 
 @media screen and (max-width: 480px) {
   .message {
-    font-size: 4vmin;
+    font-size: 6vmin;
     top: 2vmin;
     width: 80%;
   }
