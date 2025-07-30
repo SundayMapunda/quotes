@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Dropdown, Modal } from "bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { toPng } from 'html-to-image';
+import download from 'downloadjs';
 
 const quotes = [
   "I'm not clumsy, I'm just on a personal mission to test gravity!",
@@ -16,16 +17,27 @@ const authors = ["Arthur Alfred", "Anonymous", "Rachel Lorenzo"];
 
 function Daily() {
   const [currentQuote, setCurrentQuote] = useState("");
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    setCurrentQuote(quotes[randomIndex]);
-  }, []);
-
   const [currentAuthor, setCurrentAuthor] = useState("");
+  const modalRef = useRef(null);
+
   useEffect(() => {
+    const quoteIndex = Math.floor(Math.random() * quotes.length);
     const authorIndex = Math.floor(Math.random() * authors.length);
+    setCurrentQuote(quotes[quoteIndex]);
     setCurrentAuthor(authors[authorIndex]);
   }, []);
+
+  const handleDownload = () => {
+    if (!modalRef.current) return;
+
+    toPng(modalRef.current)
+      .then((dataUrl) => {
+        download(dataUrl, 'quote.png');
+      })
+      .catch((err) => {
+        console.error('Failed to capture quote:', err);
+      });
+  };
 
   return (
     <div>
@@ -44,30 +56,48 @@ function Daily() {
         >
           {`"${currentQuote}"`} <br /> - {currentAuthor}
         </p>
+         <small>Come back tomorrow for another quote</small>
       </div>
 
-      {/* <div className="modal" id="myModal">
+      <div className="modal fade" id="myModal" tabIndex="-1">
         <div className="modal-dialog">
-            <div className="modal-content">
+          <div className="modal-content">
 
             <div className="modal-header">
-                <h4 className="modal-title">Save Quote</h4>
-                <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
             </div>
 
-            <div className="modal-body">
-                <p className='fs-2' style={{fontFamily: 'monospace', fontWeight: 'bold'}}>
-                    {`"${currentQuote}"`} <br /> - {currentAuthor}
-                </p>
+            <div className="modal-body" ref={modalRef}>
+              <p className="fs-2" style={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
+                {`"${currentQuote}"`} <br /> - {currentAuthor}
+              </p>
             </div>
 
             <div className="modal-footer">
-                <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Download</button>
+             {/* <button
+                type="button"
+                className="btn btn-warning"
+                onClick={handleDownload}
+              >
+                Download
+              </button> */}
+              
+              <button
+                type="button"
+                className="btn btn-warning"
+              >
+                Download
+              </button>
+              
             </div>
 
-            </div>
+          </div>
         </div>
-        </div> */}
+      </div>
     </div>
   );
 }
